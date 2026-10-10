@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2 style="margin-bottom:8px">שלום{% if user %}, {{ user.full_name }}{% endif %}</h2>
+  <p style="color:#666;font-size:0.9rem">מערכת ניהול העובדים והתפעול</p>
+</div>
+
+<div class="card">
+  <h3 style="margin-bottom:12px">פעולות מהירות</h3>
+  <a href="/attendance/" class="btn btn-primary">שעון נוכחות</a>
+  <a href="/breaks/" class="btn btn-outline">ניהול הפסקה</a>
+  <a href="/tasks/" class="btn btn-outline">המשימות שלי היום</a>
+</div>
+
+<div class="card">
+  <p style="font-size:0.85rem;color:#888">גרסה ראשונה – נוכחות + הפסקות + סידור</p>
+</div>
+{% endblock %}

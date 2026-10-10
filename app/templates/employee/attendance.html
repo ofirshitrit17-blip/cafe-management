@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2 style="margin-bottom:12px">שעון נוכחות</h2>
+  {% if status.is_clocked_in %}
+    <span class="status-badge status-in">בחמשת – נמצא במשמרת</span>
+    <p style="margin-top:12px;font-size:0.9rem">כניסה אחרונה: {{ format_israel(status.last_clock_in) if status.last_clock_in else "-" }}</p>
+    <button class="btn btn-danger" hx-post="/attendance/clock-out" hx-swap="none" hx-on::after-request="location.reload()">יציאה</button>
+  {% else %}
+    <span class="status-badge status-out">מחוץ למשמרת</span>
+    <button class="btn btn-success" style="margin-top:16px" hx-post="/attendance/clock-in" hx-swap="none" hx-on::after-request="location.reload()">כניסה</button>
+  {% endif %}
+</div>
+
+<div class="card">
+  <h3 style="margin-bottom:8px">היסטוריה היום</h3>
+  {% if status.events %}
+    <ul style="list-style:none">
+    {% for e in status.events %}
+      <li style="padding:6px 0;border-bottom:1px solid #eee;font-size:0.9rem">
+        {{ "כניסה" if e.event_type.value == "clock_in" else "יציאה" }} –
+        {{ format_israel(e.event_time) }}
+      </li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p style="color:#888;font-size:0.9rem">אין עדיין רישומים היום</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card" style="margin-top:40px">
+  <h2 style="text-align:center;margin-bottom:20px">כניסה למערכת</h2>
+  <form method="post" action="/login/request-otp">
+    <label style="display:block;margin-bottom:6px;font-size:0.9rem">מספר טלפון</label>
+    <input type="tel" name="phone" placeholder="050-1234567" required dir="ltr" style="text-align:left">
+    <button type="submit" class="btn btn-primary">שלח קוד בוואטסאפ</button>
+  </form>
+</div>
+{% endblock %}

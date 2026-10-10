@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2 style="margin-bottom:12px">ניהול הפסקה</h2>
+  {% if active_break %}
+    <span class="status-badge status-in">הפסקה פעילה</span>
+    <p style="margin-top:12px">התחלה: {{ format_israel(active_break.started_at) }}</p>
+    <p>מתוכנן סיום: {{ format_israel(active_break.planned_end_at) }}</p>
+    <button class="btn btn-danger" style="margin-top:16px" hx-post="/breaks/end" hx-swap="none" hx-on::after-request="location.reload()">סיום הפסקה</button>
+  {% else %}
+    <p style="color:#666;margin-bottom:12px">אין הפסקה פעילה כרגע</p>
+    <form hx-post="/breaks/start" hx-swap="none" hx-on::after-request="location.reload()">
+      <label style="font-size:0.9rem">משך (דקות)</label>
+      <select name="duration">
+        <option value="15">15 דקות</option>
+        <option value="30" selected>30 דקות</option>
+        <option value="45">45 דקות</option>
+      </select>
+      <label style="font-size:0.9rem">סוג</label>
+      <select name="break_type">
+        <option value="general">כללי</option>
+        <option value="food">אוכל</option>
+        <option value="cigarette">סיגריה</option>
+      </select>
+      <button type="submit" class="btn btn-primary">התחלת הפסקה</button>
+    </form>
+  {% endif %}
+</div>
+{% endblock %}
